@@ -1,0 +1,36 @@
+---
+title: "Homework 1"
+---
+
+```{r global_options, include=FALSE}
+library(knitr)
+library(ggplot2)
+opts_chunk$set(fig.align="center", fig.height=4, fig.width=5.5)
+```
+
+**This homework is due by the posted date on edX. Please submit as a Markdown and pdf file.**
+
+In this homework you will be working with the `chickwts` dataset built into R. This data set contains weight measurements of chicks fed on different food sources to assess their effectiveness on growth rate.
+
+```{r}
+head(chickwts)
+summary(chickwts)
+```
+
+**Problem 1:** Use ggplot to make a histogram of the `weight` column. Manually choose appropriate values for `binwidth` and `center`. Explain your choice of values in 2-3 sentences.
+
+```{r}
+ggplot(chickwts,aes(weight))+geom_histogram(binwidth=50,center=125)
+```
+
+**How to choose "bin width" and "center"?**  
+1. According to Sturge’s Rule,number of bins K = 1 + 3.322logn,the logarithmic base is 10, n is the number of data points. There are total 71 data points, so I choose 7 bins.Then lower the minimum weight 108 a little to 100, raise the maximum weight 423 a little to 450. The bin width is calculated by dividing the modified (Max-Min) weight value by the number of bins,so the bin width is (450-100)/7=50,so I choose 50 as bin width.     
+2. To make sure the histogram starting with 100, I choose 125 as the center because the bin width is 50 in this case.  
+
+
+**Problem 2:** Modify the plot from Problem 1 to show one panel per feed. Hint: Use `facet_wrap()`.
+
+```{r}
+ggplot(chickwts,aes(weight))+geom_histogram(binwidth=50,center=125)+facet_wrap(vars(feed))
+```
+
